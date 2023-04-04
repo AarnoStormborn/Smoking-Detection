@@ -129,3 +129,7 @@ This will create the tables in the Database. (Use `python3` for MacOS/Linux)
 NOTE: Ensure port 8000 is not being used by any other service
 
 
+#### Training
+To see how this model was trained, check `/training/`
+
+
