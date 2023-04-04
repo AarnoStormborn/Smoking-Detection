@@ -1,0 +1,53 @@
+{% extends 'common/base.html' %}
+
+{% block title %}
+    <title>Sample</title>
+{% endblock title %}
+
+{% block style %}
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  tr {
+    height: 50px;
+  }
+
+  button {
+    border: 1px solid black;
+    position: sticky;
+    right:0;
+  }
+
+</style>
+{% endblock style %}
+    
+
+{% block navbutton %}
+    <button class="btn btn-primary shadow" onclick="sendHome()">Upload</button>
+{% endblock navbutton %}
+    
+
+{% block body %}
+{% load static %}
+
+<div class="container" style="margin-top: 8%;">
+    <h2 style="text-align: center; margin-bottom: 8%;">Uploads/Samples</h2>
+    <div class="inner" style="display: flex; justify-content: center">
+        <img src="{% url 'stream' %}" alt="Stream">
+    </div>
+</div>
+
+
+{% block script %}
+<script>
+    function sendHome(){
+      alert("Return to Home page to Upload Samples");
+    }
+</script>
+{% endblock script %}
+    
+  
+{% endblock body %}

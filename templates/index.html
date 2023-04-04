@@ -1,0 +1,112 @@
+{% extends 'common/base.html' %}
+
+{% block title %}
+    <title>Home</title>
+{% endblock title %}
+
+{% block style %}
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  tr {
+    height: 50px;
+  }
+
+  button {
+    border: 1px solid black;
+    position: sticky;
+    right:0;
+  }
+
+</style>
+{% endblock style %}
+    
+
+{% block navbutton %}
+    <a class="btn btn-primary shadow" data-bs-toggle="modal" href="#addSample" role="button" aria-expanded="false" aria-controls="collapseOne">Upload</a>
+{% endblock navbutton %}
+    
+
+{% block body %}
+{% load static %}
+
+<div class="container" style="margin-top: 8%;">
+    <h2 style="text-align: center; margin-bottom: 8%;">Uploads/Samples</h2>
+    
+    {% if data %}
+    <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in data %}  
+          <tr>
+            <td>{{ i.name }}</td>
+            <td>
+                <div class="d-flex gap-1" style="display: flex; justify-content: flex-end;">
+                    <a href="{% url 'stream' i.id %}"><button>View</button></a>
+                    <a href="{% url 'delete' i.id %}"><button>Delete</button></a>
+                </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <hr>
+    <h3 style="text-align: center; margin-top: 8%;">Upload Sample to Get Started!</h3>
+    {% endif %}
+</div>
+
+<!-- MODAL FORM -->
+<div class="modal fade" id="addSample" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <h5 class="modal-title" id="exampleModalLabel">Add Sample</h5>
+            </div>
+            <div class="modal-body">
+                <div class="card-body text-center d-flex flex-column align-items-center">
+                    <form action="" method="POST" id="sample" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3"><input class="form-control" type="text" name="name" id="sampleName" placeholder="Name" required></div>
+                        <div class="mb-3"><input class="form-control" type="file" name="file" id="sampleFile" placeholder="File Upload" required></div>
+                        <br>
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary btn-sm" data-bs-dismiss="modal">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block script %}
+  <script>
+    $("#sample").submit(function(e) {
+    e.preventDefault();
+
+    $.ajax({
+      type:"POST",
+      url:"{% url 'index' %}",
+      data: {
+        sampleName:$("#sampleName").val(),
+        sampleFile:$("#sampleFile").val(),
+      },
+      success: function(response) {
+        location.reload()
+      },
+      error: function(response) {
+        alert(response.responseJSON['errorMessage'])
+      }
+    })
+   })
+  </script>
+{% endblock script %}
+  
+{% endblock body %}
