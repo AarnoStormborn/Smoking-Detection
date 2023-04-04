@@ -50,7 +50,7 @@ The number of parameters in each type of layer is as follows:
 The total number of parameters in the YOLOv5s model is therefore 7.6 million.
 
 
-## Experimentation
+## Experimentations
 
 The model was trained using the ultralytics implementation of YOLOv5, which makes it easier to train and deploy these models. Using the available training setup,
 a total of 4 (Major and few minor ones, with small changes). (Note that the image size used was **(512X512)**) They are as follows:
