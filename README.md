@@ -83,7 +83,7 @@ Advantages of Django:
 
 ### Features
 
-* Upload Samples (Images/Videos) and store in the database  \
+* Upload Samples (Images/Videos) and store in the database
 > This can directly take RTSP links as well, for real time detections using CCTV footages
 * View Samples
 * Run Model Inferences
